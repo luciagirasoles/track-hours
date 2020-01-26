@@ -1,0 +1,82 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Create user session",
+        "tags": [
+          "Sessions"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Generate an Authorization Token from User data",
+        "operationId": "testApiKey",
+        "security": [
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An authorization token is generated",
+            "examples": {
+              "application/json": {
+                "email": "user@example.co",
+                "password": "123456"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has been rejected"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "delete": {
+        "summary": "destroy user session",
+        "description": "Destroy Authorization Token from User data",
+        "security": [
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Authorization token has been destroyed"
+          }
+        }
+      }
+    }
+  }
+}
