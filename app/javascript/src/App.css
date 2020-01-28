@@ -1,0 +1,19 @@
+.header {
+  text-align: center;
+}
+body {
+  height: 100%;
+}
+
+.jumbotron {
+  height: 100vh;
+  background: linear-gradient(156.22deg, #73c056 1.35%, #34a9b0 92.72%);
+}
+
+.buttonArea {
+  display: flex;
+  justify-content: space-evenly;
+}
+button {
+  margin-left: 5px;
+}
