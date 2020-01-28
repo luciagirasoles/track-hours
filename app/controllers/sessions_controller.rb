@@ -1,13 +1,15 @@
-class SessionsController < ApplicationController
+class SessionsController < ApiController
     skip_before_action :require_login, only: :create
   
     def create
       user = User.valid_login?(params[:email], params[:password])
       if user
         regenerate_and_signed_token(user)
-        render json: {}, status: :ok
+        render json: {name:user.fullname, role:user.role}, status: :ok
       else
-        render json: { errors: 'Incorrect email or password' },
+        email = User.find_by(email: params[:email])
+        error = email ? "Incorrect password" : "Incorrect email"
+        render json: { errors: error },
         status: :bad_request
       end
     end

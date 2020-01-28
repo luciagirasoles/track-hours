@@ -10,8 +10,17 @@ RSpec.describe SessionsController, type: :controller do
     it 'returns json with status unauthorized' do
       post :create
       expect(response).to have_http_status(:bad_request)
-
       expect(response.body).to include("errors")
+    end
+
+    it 'returns json with errors with message: Incorrect email ' do
+      post :create
+      expect(response.body).to include("Incorrect email")
+    end
+
+    it 'returns json with message: Incorrect password ' do
+      post :create, params: { email: @user1.email, password: "something" }
+      expect(response.body).to include("Incorrect password")
     end
 
     it 'returns status ok when login correct' do
