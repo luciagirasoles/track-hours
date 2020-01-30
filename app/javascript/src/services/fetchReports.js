@@ -1,32 +1,27 @@
-const API_CREATE_USER = "/api/users";
+const API_USERS_DATA = "/api/users";
 
 async function createError(response) {
   const { errors } = await response.json();
   const error = Error(errors.message);
-  error.message = Object.keys(errors.message)
-    .map(key => {
-      return `${key} ${errors.message[key]}`;
-    })
-    .join(" ,");
+  error.message = errors;
   error.status = response.status;
   error.statusText = response.statusText;
   return error;
 }
 
-export default async function createUser(userInfo) {
+export async function fetchUserReport() {
   try {
-    let response = await fetch(API_CREATE_USER, {
-      method: "POST",
+    let response = await fetch(API_USERS_DATA, {
+      method: "GET",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector("meta[name=csrf-token]").content
-      },
-      body: JSON.stringify(userInfo)
+      }
     });
     if (!response.ok) throw await createError(response);
     const payload = await response.json();
-    return payload;
+    return Object.values(payload);
   } catch (e) {
     return { errors: e.message };
   }

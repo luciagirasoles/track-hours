@@ -7,7 +7,7 @@ Rails.application.routes.draw do
    post '/login', to: 'sessions#create'
    delete '/logout', to: 'sessions#destroy'
    namespace :api do
-    resources :users, only:[:create]
+    resources :users, only:[:index, :create]
    end
    get "*path", to: "home#index", constraints: { format: "html" }
 end

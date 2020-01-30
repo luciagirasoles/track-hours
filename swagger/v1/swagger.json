@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "API V1",
+    "title": "Trak Hours API endpoints",
     "version": "v1"
   },
   "securityDefinitions": {
@@ -111,7 +111,7 @@
     },
     "/logout": {
       "delete": {
-        "summary": "destroy user session",
+        "summary": "Destroy user session",
         "description": "Destroy Authorization Token from User data",
         "tags": [
           "Sessions"
@@ -131,15 +131,14 @@
     },
     "/api/users": {
       "post": {
-        "summary": "user with admin privileges can register new user",
+        "summary": "User with admin privileges can register new user",
         "tags": [
           "Users"
         ],
         "consumes": [
           "application/json"
         ],
-        "description": "Allow user with admin role to create new users ",
-        "operationId": "testApiKey",
+        "description": "User with admin privileges can create new users ",
         "security": [
           {
             "api_key": {
@@ -151,29 +150,25 @@
             "name": "user",
             "in": "body",
             "schema": {
+              "type": "object",
               "properties": {
-                "user": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "last_name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "password_digest": {
-                      "type": "string"
-                    },
-                    "gender": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    }
-                  }
+                "name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password_digest": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
                 },
                 "required": [
                   "email",
@@ -219,7 +214,7 @@
             }
           },
           "400": {
-            "description": " Bad Request",
+            "description": " Bad Request - Some parameter missing or email has already been taken",
             "examples": {
               "application/json": {
                 "user": {
@@ -247,6 +242,64 @@
                 }
               }
             }
+          }
+        }
+      },
+      "get": {
+        "summary": "User with admin privileges can get users summary",
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "api_key": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "user has not authorization token on header"
+          },
+          "200": {
+            "description": "status ok when there is authorization included"
+          },
+          "403": {
+            "description": "there is not authorization included"
           }
         }
       }

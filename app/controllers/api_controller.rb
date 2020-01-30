@@ -33,6 +33,11 @@ class ApiController < ActionController::API
       errors = { errors: { message: message } }
       render json: errors, status: :forbidden
     end
+
+    def render_bad_request(message)
+      errors = { errors: { message: message } }
+      render json: errors, status: :bad_request
+    end
   
     def authenticate_token
       User.find_by_token(cookies.signed[:auth_token])
