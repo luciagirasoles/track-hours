@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Ruby version : 2.7.0
 
-Things you may want to cover:
+- System dependencies : OS Linux/ IOS
 
-* Ruby version
+- Database initialization : rails s
 
-* System dependencies
+- Run the test suite : rspec
 
-* Configuration
+- API documentation : RAILS_URL/api-docs
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Deploment on-line: https://track-hours.herokuapp.com/
