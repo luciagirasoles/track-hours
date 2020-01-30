@@ -75,7 +75,7 @@ describe 'Sessions API' do
     end
 
     path '/logout' do
-        delete 'destroy user session' do
+        delete 'Destroy user session' do
             description 'Destroy Authorization Token from User data'
             tags 'Sessions'
             security [ api_key: {} ]

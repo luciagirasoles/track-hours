@@ -3,30 +3,26 @@ require 'swagger_helper'
 
 describe 'Users API' do
     path '/api/users' do
-        post 'user with admin privileges can register new user' do
-            tags 'Users'
+        post 'User with admin privileges can register new user' do
+            tags :Users
             consumes 'application/json'
-            description 'Allow user with admin role to create new users '
-            operationId 'testApiKey'
+            description 'User with admin privileges can create new users '
             security [ api_key: {} ]
             parameter name: :user, in: :body, schema: {
-                properties: {
-                    user:{
-                        type: :object,
-                        properties:{
-                            name: { type: :string },
-                            last_name: { type: :string },
-                            email: { type: :string },
-                            password_digest: { type: :string },
-                            gender: { type: :string },
-                            role: {type: :string }
-                        }
-                  },
+                type: :object,
+                properties:{
+                    name: { type: :string },
+                    last_name: { type: :string },
+                    email: { type: :string },
+                    password_digest: { type: :string },
+                    gender: { type: :string },
+                    role: {type: :string },
                 required:[:email, :password_digest, :name, :last_name, :role, :gender]
-                }
-              }
 
-              let(:session_admin){User.create(name: 'Mayra', last_name: 'Navarro', gender:"female", email: 'mnavarro@runa.co', password: '123456', role: "admin")}
+            }
+        }
+
+              let(:session_admin){ User.create(name: 'Mayra', last_name: 'Navarro', gender:"female", email: 'mnavarro@runa.co', password: '123456', role: "admin")}
               let(:session_regular){User.create(name: 'Juan', last_name: 'Perez', gender:"male", email: 'jperez@runa.co', password: '123456', role: "employee")}
                 
               response 403, 'Access denied' do
@@ -80,6 +76,41 @@ describe 'Users API' do
                     xit
                 end
               end
+
+        get 'User with admin privileges can get users summary' do
+            tags :Users
+            consumes 'application/json'
+            produces 'application/json'
+            security [ api_key: {} ]
+            parameter name: :user, in: :body, schema: {
+                type: :object,
+                properties:{
+                    id: { type: :integer },
+                    name: { type: :string },
+                    last_name: { type: :string },
+                    email: { type: :string },
+                    gender: { type: :string },
+                    role: {type: :string }
+                    }
+            }   
+
+            response 401, "user has not authorization token on header" do
+                xit
+            end
+
+            response 200, "status ok when there is authorization included" do
+                xit
+            end
+
+            response 403, "there is not authorization included" do
+                xit
+            end
+
+
+        end
+                    
+        
+
 
               
     end
