@@ -3,9 +3,9 @@ const API_CREATE_USER = "/api/users";
 async function createError(response) {
   const { errors } = await response.json();
   const error = Error(errors.message);
-  error.message = Object.keys(errors)
+  error.message = Object.keys(errors.message)
     .map(key => {
-      return `${key} ${errors[key]}`;
+      return `${key} ${errors.message[key]}`;
     })
     .join(" ,");
   error.status = response.status;

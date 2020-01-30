@@ -10,7 +10,7 @@ async function createError(response) {
   return error;
 }
 
-export default async function login(user) {
+export async function login(user) {
   try {
     let response = await fetch(API_LOGIN_URL, {
       method: "POST",
