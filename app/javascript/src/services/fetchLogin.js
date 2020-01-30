@@ -10,7 +10,7 @@ async function createError(response) {
   return error;
 }
 
-export async function login(user) {
+export default async function login(user) {
   try {
     let response = await fetch(API_LOGIN_URL, {
       method: "POST",
@@ -30,19 +30,16 @@ export async function login(user) {
 }
 
 export async function logout() {
-  const response = await fetch(API_LOGOUT_URL, {
+  await fetch(API_LOGOUT_URL, {
     method: "DELETE",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
       "X-CSRF-Token": document.querySelector("meta[name=csrf-token]").content
     }
+  }).then(() => {
+    clearCookies();
   });
-  // .then(() => {
-  //   clearCookies();
-  // });
-
-  console.log("logOut response ", response);
 }
 
 function clearCookies() {
