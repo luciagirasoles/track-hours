@@ -5,9 +5,10 @@ body {
   height: 100%;
 }
 
-.jumbotron {
-  height: 100vh;
-  background: linear-gradient(156.22deg, #73c056 1.35%, #34a9b0 92.72%);
+html {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
 
 .buttonArea {
@@ -16,4 +17,20 @@ body {
 }
 button {
   margin-left: 5px;
+}
+.tab-content {
+  height: 60vh;
+  overflow-y: visible;
+  overflow-x: hidden;
+  margin-top: 20px;
+}
+
+.card-header-tabs {
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { navigate } from "@reach/router";
 
-import { login } from "../services/fetchLogin";
+import login from "../services/fetchLogin";
 import { useUserDispatch, useUserState } from "../contexts/userContext";
 
 export default function Login() {
@@ -46,7 +46,8 @@ export default function Login() {
     setValidated(true);
   }
   function reset() {
-    document.getElementById("loginForm").reset();
+    setEmail("");
+    setPassword("");
     setMessageAlert("");
     setShowAlert(false);
     setValidated(false);
