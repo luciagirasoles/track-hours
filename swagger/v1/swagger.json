@@ -24,49 +24,12 @@
         "description": "Generate an Authorization Token from User data",
         "security": [
           {
-            "api_key": {
-            }
+            "api_key": [
+
+            ]
           }
         ],
         "parameters": [
-          {
-            "name": "params",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "email",
-                "password"
-              ]
-            }
-          },
-          {
-            "name": "params",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "email",
-                "password"
-              ]
-            }
-          },
           {
             "name": "params",
             "in": "body",
@@ -118,8 +81,9 @@
         ],
         "security": [
           {
-            "api_key": {
-            }
+            "api_key": [
+
+            ]
           }
         ],
         "responses": {
@@ -141,8 +105,9 @@
         "description": "User with admin privileges can create new users ",
         "security": [
           {
-            "api_key": {
-            }
+            "api_key": [
+
+            ]
           }
         ],
         "parameters": [
@@ -169,16 +134,16 @@
                 },
                 "role": {
                   "type": "string"
-                },
-                "required": [
-                  "email",
-                  "password_digest",
-                  "name",
-                  "last_name",
-                  "role",
-                  "gender"
-                ]
-              }
+                }
+              },
+              "required": [
+                "email",
+                "password_digest",
+                "name",
+                "last_name",
+                "role",
+                "gender"
+              ]
             }
           }
         ],
@@ -258,8 +223,9 @@
         ],
         "security": [
           {
-            "api_key": {
-            }
+            "api_key": [
+
+            ]
           }
         ],
         "parameters": [
