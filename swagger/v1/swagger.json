@@ -4,6 +4,13 @@
     "title": "API V1",
     "version": "v1"
   },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
   "paths": {
     "/login": {
       "post": {
@@ -15,15 +22,51 @@
           "application/json"
         ],
         "description": "Generate an Authorization Token from User data",
-        "operationId": "testApiKey",
         "security": [
           {
-            "api_key": [
-
-            ]
+            "api_key": {
+            }
           }
         ],
         "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          },
           {
             "name": "params",
             "in": "body",
@@ -55,7 +98,13 @@
             }
           },
           "400": {
-            "description": "Request has been rejected"
+            "description": "Incorrect password / Incorrect email",
+            "examples": {
+              "application/json": {
+                "email": "not@email.co",
+                "password": ""
+              }
+            }
           }
         }
       }
@@ -64,16 +113,140 @@
       "delete": {
         "summary": "destroy user session",
         "description": "Destroy Authorization Token from User data",
+        "tags": [
+          "Sessions"
+        ],
         "security": [
           {
-            "api_key": [
-
-            ]
+            "api_key": {
+            }
           }
         ],
         "responses": {
           "204": {
             "description": "Authorization token has been destroyed"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "post": {
+        "summary": "user with admin privileges can register new user",
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Allow user with admin role to create new users ",
+        "operationId": "testApiKey",
+        "security": [
+          {
+            "api_key": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password_digest": {
+                      "type": "string"
+                    },
+                    "gender": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "email",
+                  "password_digest",
+                  "name",
+                  "last_name",
+                  "role",
+                  "gender"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Access denied",
+            "examples": {
+              "application/json": {
+                "user": {
+                  "email": "newuser@example.co",
+                  "password_digest": "123456",
+                  "gender": "male",
+                  "role": "admin",
+                  "name": "John",
+                  "last_name": "Doe"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token - This user doesn't have permissions",
+            "examples": {
+              "application/json": {
+                "user": {
+                  "email": "newuser@example.co",
+                  "password_digest": "123456",
+                  "gender": "male",
+                  "role": "admin",
+                  "name": "John",
+                  "last_name": "Doe"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": " Bad Request",
+            "examples": {
+              "application/json": {
+                "user": {
+                  "email": "newuser@example.co",
+                  "password_digest": "123456",
+                  "gender": "male",
+                  "role": "admin",
+                  "name": "John",
+                  "last_name": "Doe"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "User was created",
+            "examples": {
+              "application/json": {
+                "user": {
+                  "email": "newuser@example.co",
+                  "password_digest": "123456",
+                  "gender": "male",
+                  "role": "admin",
+                  "name": "John",
+                  "last_name": "Doe"
+                }
+              }
+            }
           }
         }
       }
