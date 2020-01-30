@@ -22,7 +22,7 @@ button {
   height: 60vh;
   overflow-y: visible;
   overflow-x: hidden;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .card-header-tabs {
@@ -33,4 +33,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.accordion > .card > .card-header {
+  cursor: pointer;
 }
