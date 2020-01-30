@@ -1,0 +1,172 @@
+swagger: '2.0'
+info:
+  title: Trak Hours API endpoints
+  version: v1
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+paths:
+  /login:
+    post:
+      summary: Create user session
+      tags:
+        - Sessions
+      consumes:
+        - application/json
+      description: Generate an Authorization Token from User data
+      security:
+        - api_key: []
+      parameters:
+        - name: params
+          in: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            required:
+              - email
+              - password
+      responses:
+        '200':
+          description: An authorization token is generated
+          examples:
+            application/json:
+              email: user@example.co
+              password: '123456'
+        '400':
+          description: Incorrect password / Incorrect email
+          examples:
+            application/json:
+              email: not@email.co
+              password: ''
+  /logout:
+    delete:
+      summary: Destroy user session
+      description: Destroy Authorization Token from User data
+      tags:
+        - Sessions
+      security:
+        - api_key: []
+      responses:
+        '204':
+          description: Authorization token has been destroyed
+  /api/users:
+    post:
+      summary: User with admin privileges can register new user
+      tags:
+        - Users
+      consumes:
+        - application/json
+      description: 'User with admin privileges can create new users '
+      security:
+        - api_key: []
+      parameters:
+        - name: user
+          in: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+              password_digest:
+                type: string
+              gender:
+                type: string
+              role:
+                type: string
+            required:
+              - email
+              - password_digest
+              - name
+              - last_name
+              - role
+              - gender
+      responses:
+        '201':
+          description: User was created
+          examples:
+            application/json:
+              user:
+                email: newuser@example.co
+                password_digest: '123456'
+                gender: male
+                role: admin
+                name: John
+                last_name: Doe
+        '400':
+          description: ' Bad Request - Some parameter missing or email has already been taken'
+          examples:
+            application/json:
+              user:
+                email: newuser@example.co
+                password_digest: '123456'
+                gender: male
+                role: admin
+                name: John
+                last_name: Doe
+        '401':
+          description: Token - This user doesn't have permissions
+          examples:
+            application/json:
+              user:
+                email: newuser@example.co
+                password_digest: '123456'
+                gender: male
+                role: admin
+                name: John
+                last_name: Doe
+        '403':
+          description: Access denied
+          examples:
+            application/json:
+              user:
+                email: newuser@example.co
+                password_digest: '123456'
+                gender: male
+                role: admin
+                name: John
+                last_name: Doe
+    get:
+      summary: User with admin privileges can get users summary
+      tags:
+        - Users
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - api_key: []
+      parameters:
+        - name: user
+          in: body
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+              gender:
+                type: string
+              role:
+                type: string
+      responses:
+        '200':
+          description: status ok when there is authorization included
+        '401':
+          description: user has not authorization token on header
+        '403':
+          description: there is not authorization included
