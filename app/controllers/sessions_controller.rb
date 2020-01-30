@@ -1,5 +1,5 @@
 class SessionsController < ApiController
-    skip_before_action :require_login, only: :create
+    skip_before_action :require_login, :authorization
   
     def create
       user = User.valid_login?(params[:email], params[:password])

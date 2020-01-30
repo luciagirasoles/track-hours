@@ -10,11 +10,11 @@ export default function Navigation({ user }) {
     });
   }
   return (
-    <Navbar bg="light" fixed="top">
+    <Navbar expand="lg" bg="light" fixed="top">
       <Navbar.Brand>Track Hours</Navbar.Brand>
-      <Navbar.Toggle />
+      <Navbar.Text>{`${user.name}`}</Navbar.Text>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text>{`${user.name}`}</Navbar.Text>
         <Button
           style={{ marginLeft: "5px" }}
           variant="outline-success"

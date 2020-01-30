@@ -3,9 +3,9 @@ class User < ApplicationRecord
     has_secure_token
 
      ### Validations
-    validates :email, presence: true
-    validates :password, presence: true
-
+    validates :email, :name, :last_name, :password_digest, :role, :gender, presence: true
+    validates :email, uniqueness: true
+ 
     def invalidate_token
         update(token: nil)
     end
@@ -17,6 +17,10 @@ class User < ApplicationRecord
 
     def fullname
         "#{name} #{last_name}"
+    end
+
+    def role?(expected_role)
+        role == expected_role
     end
 
 end
